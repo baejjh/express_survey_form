@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title><%= title %></title>
+<link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+<h1><%= title %></h1>
+<fieldset>
+<form action="/process" method="post">
+	<table>
+	<tr>
+		<td>Name:</td>
+		<td><input type="text" name="name" placeholder="Place Your Name Here"></td>
+	</tr>
+	<tr>
+		<td>Location:</td>
+		<td>
+		<select name="location">
+			<option value="">Choose Your Favorite Location</option>
+			<option value="CA">California</option>
+			<option value="TX">Texas</option>
+			<option value="MD">Maryland</option>
+			<option value="WA">Washington</option>
+			<option value="NY">New York</option>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td>Languages:</td>
+		<td>
+		<select name ="language">
+			<option value="">Choose Your Favorite Language</option>
+			<option value="PHP">PHP</option>
+			<option value="JS">JavaScript</option>
+			<option value="C++">C++</option>
+			<option value="Java">Java</option>
+			<option value="Python">Python</option>
+			<option value="Ruby">Ruby</option>
+		</select>
+		</td>
+	</tr>
+	<tr><td>Comment (Optional):</td></tr>
+	<tr>
+		<td><input type="text" name ="comment" placeholder="Place Your Comment Here"></td>
+	</tr>
+	</table>
+	<input type="submit" value="Submit">
+</form>
+</fieldset>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%= title %></title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+<h1><%= title %></h1>
+	<fieldset>
+	<table>
+	<tr>
+		<td>Name:</td>
+		<td><%= session_data.name %></td>
+	</tr>
+	<tr>
+		<td>Location:</td>
+		<td><%= session_data.location %></td>
+	</tr>
+	<tr>
+		<td>Language:</td>
+		<td><%= session_data.language %></td>
+	</tr>
+	<tr><td>Comment (Optional):</td>
+		<td><%= session_data.comment %></td>
+	</tr>
+	</table>
+	<a href="/">Go Back</a>
+	</fieldset>
+</body>
+</html>
