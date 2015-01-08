@@ -35,3 +35,11 @@
             session_data: req.session
         });
     }); 
+
+* The form information EMIT to the server with the event name "posting_form"
+
+** The server listens for an event called 'posting_form' and when event is triggered, organize all emitted info to form a single message and sends this single message with the event called 'updated_message'
+
+*** The server EMIT event called 'random_number' with number between 1-1000
+**** The client listens for an event called 'random_number' and when event is triggered, show the number in HTML
+***** The client listens for an event called 'updated_message' and when event is triggered, display message in HTML

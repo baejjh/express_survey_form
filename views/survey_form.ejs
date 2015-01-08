@@ -1,23 +1,51 @@
 <!DOCTYPE html>
-<html>
 <head>
-<title><%= title %></title>
-<link rel='stylesheet' href='/stylesheets/style.css' />
+	<meta charset="utf-8">
+	<title><%= title %></title>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<link rel='stylesheet' href='/stylesheets/style.css'/>
 </head>
-
 <body>
-<h1><%= title %></h1>
+<script>
+	$(document).ready(function(){
+	// 1.
+		io = io.connect();
+		$("#survey_form").submit(function(){
+			console.log($("#name_html").val());
+			io.emit("posting_form", {
+				name: $("#name_html").val(), 
+				location: $("#location_html").val(), 
+				language: $("#language_html").val(), 
+				comment: $("#comment_html").val()
+			});
+			return false;
+		});
+	// 3.
+		io.on("updated_message", function(data){
+			// alert('Submission #'+data.randomly_chosen_number+ ': You, '+ data.survey_info.name +', submitted your information');
+			$("#message_div").text("You emitted the following information to the server: " + JSON.stringify(data.survey_info)+ ". " + data.randomly_chosen_number);
+		});
+	});
+</script>​
+
+<body>​
+<!-- Message Div -->
+	<div id="message_div"></div>
+
+<!-- Survey Form -->
 <fieldset>
-<form action="/process" method="post">
+<h1><%= title %></h1>
+<form action="" id="survey_form">
 	<table>
 	<tr>
 		<td>Name:</td>
-		<td><input type="text" name="name" placeholder="Place Your Name Here"></td>
+		<td><input type="text" id="name_html" placeholder="Place Your Name Here"></td>
 	</tr>
 	<tr>
 		<td>Location:</td>
 		<td>
-		<select name="location">
+		<select id="location_html">
 			<option value="">Choose Your Favorite Location</option>
 			<option value="CA">California</option>
 			<option value="TX">Texas</option>
@@ -30,7 +58,7 @@
 	<tr>
 		<td>Languages:</td>
 		<td>
-		<select name ="language">
+		<select id ="language_html">
 			<option value="">Choose Your Favorite Language</option>
 			<option value="PHP">PHP</option>
 			<option value="JS">JavaScript</option>
@@ -43,11 +71,11 @@
 	</tr>
 	<tr><td>Comment (Optional):</td></tr>
 	<tr>
-		<td><input type="text" name ="comment" placeholder="Place Your Comment Here"></td>
+		<td><input type="text" id ="comment_html" placeholder="Place Your Comment Here"></td>
 	</tr>
 	</table>
-	<input type="submit" value="Submit">
-</form>
+	<input type="submit" value="Submit" class="submit_btn">
 </fieldset>
+</form>
 </body>
 </html>

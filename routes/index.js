@@ -5,22 +5,18 @@ module.exports = function Route(app){
         });
     }); 
 
-    app.post('/process', function(req, res){
-    	console.log('\n\n\nPOST DATA\n\n', req.body);
-    	req.session.name = req.body.name;
-	    req.session.location = req.body.location;
-	    req.session.language = req.body.language;
-	    req.session.comment = req.body.comment;
-	    req.session.sessionID = req.sessionID;
-        req.session.save(function (){
-	       	res.redirect('/result');
-       	});
-    }); 
-
-	app.get('/result', function(req, res){
- 	    res.render('survey_result', {
- 	    	title:'Submitted Information',
- 	    	session_data: req.session
- 	    });
-    }); 
-}
+    // 2. 
+    app.io.route('posting_form', function(req) {
+        console.log('Client submitted form: ', req.data);
+        submitted_info = {
+            name: req.data.name,
+            location: req.data.location,
+            language: req.data.language,
+            comment: req.data.comment
+        };
+        req.io.emit("updated_message", {
+            survey_info: submitted_info,
+            randomly_chosen_number: "Your lucky number emitted by the server is: " + Math.floor((Math.random()*1000)+1) + "."
+        });
+    });
+};
